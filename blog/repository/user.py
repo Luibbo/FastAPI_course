@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 
 def create(request: schemas.User, db: Session):
     #hashedPassword = pwd_cxt.hash(request.password)
-    new_user = models.User(name=request.name, email=request.email, password=hashing.Hash.bcrypt(request.password))
+    new_user = models.User(name=request.name, email=request.email, password=hashing.Hash.mybcrypt(request.password))
     db.add(new_user)
     db.commit()
     db.refresh(new_user)

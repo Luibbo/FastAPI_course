@@ -1,3 +1,5 @@
+import os
+import uvicorn
 from fastapi import FastAPI
 from . import models
 from .database import engine
@@ -10,3 +12,7 @@ models.Base.metadata.create_all(engine)
 app.include_router(authentication.router)
 app.include_router(blog.router)
 app.include_router(user.router)
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8888))
+    uvicorn.run("blog.main:app", host="0.0.0.0", port=port)

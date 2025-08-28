@@ -3,7 +3,7 @@ applications:
   blogs_fastapi:
     # Application source code directory
     source:
-      root: "\"
+      root: "."
 
     # The runtime the application uses.
     # Complete list of available runtimes: https://docs.upsun.com/create-apps/app-reference/single-runtime-image.html#types
@@ -38,14 +38,14 @@ applications:
       commands:
         # The command to launch your app. If it terminates, it’s restarted immediately.
         # You can use the $PORT or the $SOCKET environment variable depending on the socket family of your upstream
-        start: "echo 'Put your web server command in here! You need to listen to \"$UNIX\" unix socket. Read more about it here: https://docs.upsun.com/create-apps/app-reference/single-runtime-image.html#web-commands'; sleep 60"
+        start: "uvicorn blog.main:app --host 0.0.0.0 --port 8080"
       # You can listen to a UNIX socket (unix) or a TCP port (tcp, default).
       # Whether your app should speak to the webserver via TCP or Unix socket. Defaults to tcp
       # More information: https://docs.upsun.com/create-apps/app-reference/single-runtime-image.html#where-to-listen
       upstream:
         # Whether your app should speak to the webserver via TCP or Unix socket. Defaults to tcp
         # More information: https://docs.upsun.com/create-apps/app-reference/single-runtime-image.html#where-to-listen
-        socket_family: unix
+        socket_family: tcp
       # Each key in locations is a path on your site with a leading /.
       # More information: https://docs.upsun.com/create-apps/app-reference/single-runtime-image.html#locations
       locations:
